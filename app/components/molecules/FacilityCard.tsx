@@ -55,14 +55,14 @@ function FacilityCard({
               <Label text="Closed" variant="closed" />
             ))}
         </div>
-        <div className="flex">
-          <div className="flex items-center gap-1 w-3/5 shrink-1">
+        <div className="flex justify-between">
+          <div className="flex items-center gap-1 overflow-hidden">
             <Icon name="Location" className="w-2.5 h-3 text-secondary" />
             <p className="text-sm leading-5 text-secondary whitespace-nowrap overflow-ellipsis overflow-hidden">
               {address}
             </p>
           </div>
-          <div className="flex items-center gap-1 w-2/5 justify-end">
+          <div className="flex items-center gap-1 justify-end">
             <Button variant="square" iconName="Delete" onClick={() => {}} />
             <Button variant="secondary" text="Edit" onClick={() => {}} />
           </div>

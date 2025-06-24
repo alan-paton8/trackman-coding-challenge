@@ -22,7 +22,7 @@ function Button({ text, variant = "primary", onClick, iconName }: ButtonProps) {
         "hover:cursor-pointer",
         "focus:outline-none",
         "focus:ring-2",
-        "focus:ring-trackman",
+        "focus:ring-blue-500",
         "focus:ring-opacity-50",
         variant == "primary" && [
           "bg-trackman",

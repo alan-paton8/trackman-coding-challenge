@@ -10,7 +10,7 @@ function Icon({ name, className }: { name: IconName; className?: string }) {
   }
 
   return (
-    <span className="inline-block">
+    <span className="inline-block flex-shrink-0">
       <img src={IconComponent} alt={name} className={className} />
     </span>
   );

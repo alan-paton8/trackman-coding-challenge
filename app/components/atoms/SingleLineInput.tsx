@@ -1,19 +1,38 @@
+import clsx from "clsx";
+
 interface SingleLineInputProps {
   title: string;
   value: string;
+  className?: string;
+  error?: string;
+  required?: boolean;
   onChange: (value: string) => void;
 }
 
-function SingleLineInput({ title, value, onChange }: SingleLineInputProps) {
+function SingleLineInput({
+  title,
+  value,
+  className,
+  error,
+  required = false,
+  onChange,
+}: SingleLineInputProps) {
   return (
-    <div className="flex flex-col">
-      <label className="text-sm font-medium text-gray-700 mb-1">{title}</label>
+    <div className={clsx("flex flex-col", className)}>
+      <label className="text-sm font-medium text-gray-700 mb-1" htmlFor={title}>
+        {title}
+        {required && "*"}
+      </label>
       <input
+        id={title}
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required={required}
+        suppressHydrationWarning
       />
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 }

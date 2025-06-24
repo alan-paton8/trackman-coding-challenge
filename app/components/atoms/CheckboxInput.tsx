@@ -1,6 +1,7 @@
 interface CheckboxInputProps {
   title: string;
-  checked: boolean;
+  checked?: boolean;
+  disabled?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   description?: string;
 }
@@ -8,6 +9,7 @@ interface CheckboxInputProps {
 function CheckboxInput({
   title,
   checked,
+  disabled = false,
   onChange,
   description,
 }: CheckboxInputProps) {
@@ -18,15 +20,18 @@ function CheckboxInput({
           id={title}
           type="checkbox"
           checked={checked}
+          disabled={disabled}
           onChange={onChange}
-          className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          className="h-4 w-4 accent-trackman border-gray-300 rounded focus:ring-blue-500 disabled:accent-trackman"
         />
       </div>
       <div className="ml-3 text-sm">
         <label htmlFor={title} className="font-medium text-gray-700">
           {title}
         </label>
-        {description && <p className="text-gray-500">{description}</p>}
+        {description && (
+          <p className="text-gray-500 sm:whitespace-nowrap">{description}</p>
+        )}
       </div>
     </div>
   );
