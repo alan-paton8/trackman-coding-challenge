@@ -38,7 +38,6 @@ function FacilityCard({
   const isFacilityOpen =
     openTime && closeTime ? isOpen(openTime, closeTime) : false;
 
-  console.log("Rendering FacilityCard:", id);
   const handleEdit = () => {
     navigate(`/facilities/edit/${id}`, {
       state: {
@@ -108,8 +107,8 @@ function FacilityCard({
           </div>
           <div className="flex justify-between">
             <div className="flex items-center gap-1 overflow-hidden">
-              <Icon name="Location" className="w-2.5 h-3 text-secondary" />
-              <p className="text-sm leading-5 text-secondary whitespace-nowrap overflow-ellipsis overflow-hidden">
+              <Icon name="Location" className="w-2.5 h-3 text-secondary-text" />
+              <p className="text-sm leading-5 text-secondary-text whitespace-nowrap overflow-ellipsis overflow-hidden">
                 {address}
               </p>
             </div>
