@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import Header from "./components/organisms/Header";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,8 +33,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="mx-5 md:mx-10 lg:mx-34">
-        {children}
+      <body>
+        <Header />
+        <main className="mx-5 md:mx-10 lg:mx-34">{children}</main>
         <ScrollRestoration />
         <Scripts />
       </body>

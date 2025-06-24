@@ -8,6 +8,7 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --color-default: #1e1e1e;
   --color-secondary: #757575;
+  --color-tertiary: #767676;
   --color-positive: #14ae5c;
   --color-approval: #ebffee;
   --color-negative: #ec221f;
@@ -16,6 +17,8 @@
   --color-trackman-hover: #a5470e;
   --color-trackman-secondary: #f5f5f5;
   --color-trackman-secondary-hover: #bfbfbf;
+  --color-header: #2c2c2c;
+  --color-active-nav: #f3f3f3;
 }
 
 html,
