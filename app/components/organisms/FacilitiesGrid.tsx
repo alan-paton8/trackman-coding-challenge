@@ -12,6 +12,11 @@ function FacilitiesGrid({
 }) {
   const navigate = useNavigate();
 
+  const sortedFacilities = [...facilities].sort((a, b) => {
+    if (a.isDefault === b.isDefault) return 0;
+    return a.isDefault ? -1 : 1;
+  });
+
   return (
     <div className="flex flex-col items-end gap-2.5">
       <Button
@@ -19,8 +24,8 @@ function FacilitiesGrid({
         text="Create Facility"
         onClick={() => navigate("/facilities/add")}
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-        {facilities.map((facility: Facility) => (
+      <div className="grid grid-cols-1 gap-4 p-4 w-full sm:grid-cols-2 lg:grid-cols-3">
+        {sortedFacilities.map((facility: Facility) => (
           <FacilityCard
             key={facility.id}
             id={facility.id}
