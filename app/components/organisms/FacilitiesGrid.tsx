@@ -12,8 +12,6 @@ function FacilitiesGrid({
 }) {
   const navigate = useNavigate();
 
-  console.log("FacilitiesGrid:", facilities);
-
   return (
     <div className="flex flex-col items-end gap-2.5">
       <Button
@@ -22,25 +20,20 @@ function FacilitiesGrid({
         onClick={() => navigate("/facilities/add")}
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-        {facilities.map(
-          (facility: Facility) => (
-            console.log("Rendering FacilityCard:", facility.id),
-            (
-              <FacilityCard
-                key={facility.id}
-                id={facility.id}
-                name={facility.name}
-                address={facility.address}
-                description={facility.description}
-                imageUrl={facility.imageUrl}
-                isDefault={facility.isDefault}
-                openTime={facility.openTime}
-                closeTime={facility.closeTime}
-                onDelete={onDeleteCallback}
-              />
-            )
-          )
-        )}
+        {facilities.map((facility: Facility) => (
+          <FacilityCard
+            key={facility.id}
+            id={facility.id}
+            name={facility.name}
+            address={facility.address}
+            description={facility.description}
+            imageUrl={facility.imageUrl}
+            isDefault={facility.isDefault}
+            openTime={facility.openTime}
+            closeTime={facility.closeTime}
+            onDelete={onDeleteCallback}
+          />
+        ))}
       </div>
     </div>
   );
