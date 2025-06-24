@@ -5,10 +5,14 @@ import type { Facility } from "~/components/molecules/FacilityForm";
 function Facilities() {
   const [facilitiesParsed, setFacilitiesParsed] = useState<Facility[]>([]);
 
-  useEffect(() => {
+  const fetchFacilities = () => {
     const facilities = localStorage.getItem("facilities");
     const facilitiesParsed = facilities ? JSON.parse(facilities) : [];
     setFacilitiesParsed(facilitiesParsed);
+  };
+
+  useEffect(() => {
+    fetchFacilities();
   }, []);
 
   return (
@@ -24,6 +28,7 @@ function Facilities() {
           isDefault={facility.isDefault}
           openTime={facility.openTime}
           closeTime={facility.closeTime}
+          onDelete={fetchFacilities}
         />
       ))}
     </div>

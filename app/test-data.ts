@@ -1,8 +1,11 @@
 // Test facilities; name, address, description,
 // imageUrl, default, openTime, closeTime
 
+import { id } from "zod/v4/locales";
+
 export default [
   {
+    id: "1",
     name: "Central Park",
     address: "59th St to 110th St, New York, NY 10022",
     description: "A large public park in New York City.",
@@ -12,6 +15,7 @@ export default [
     closeTime: "17:00",
   },
   {
+    id: "2",
     name: "Golden Gate Park",
     address: "San Francisco, CA 94121",
     description: "A large urban park with gardens and museums.",
@@ -21,6 +25,7 @@ export default [
     closeTime: "13:00",
   },
   {
+    id: "3",
     name: "Hyde Park",
     address: "London, UK",
     description:
