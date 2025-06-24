@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "~/lib/utils";
 
 interface SingleLineInputProps {
   title: string;
@@ -18,7 +18,7 @@ function SingleLineInput({
   onChange,
 }: SingleLineInputProps) {
   return (
-    <div className={clsx("flex flex-col", className)}>
+    <div className={cn("flex flex-col", className)}>
       <label className="text-sm font-medium text-gray-700 mb-1" htmlFor={title}>
         {title}
         {required && "*"}

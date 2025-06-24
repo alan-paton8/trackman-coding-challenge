@@ -1,43 +1,23 @@
+import { useNavigate } from "react-router";
 import Icon from "../atoms/Icon";
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <header className="bg-header py-4 mb-8">
       <div className="flex gap-8 mx-5 md:mx-10 lg:mx-34">
-        <Icon name="Logo" className="h-full" />
-        <nav>
+        <div onClick={() => navigate("/facilities")} className="cursor-pointer">
+          <Icon name="Logo" className="h-full" wrapperClass="h-full" />
+        </div>
+        <nav className="hidden sm:block">
           <ul className="flex gap-2">
             <li>
-              <a
-                href="/facilities"
+              <div
+                onClick={() => navigate("/facilities")}
                 className="py-1.5 px-3 hover:underline text-active-nav"
               >
                 Facilities
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="py-1.5 px-3 hover:cursor-not-allowed text-tertiary"
-              >
-                Locations
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="py-1.5 px-3 hover:cursor-not-allowed text-tertiary"
-              >
-                Players
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="py-1.5 px-3 hover:cursor-not-allowed text-tertiary"
-              >
-                Access Management
-              </a>
+              </div>
             </li>
           </ul>
         </nav>

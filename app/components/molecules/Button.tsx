@@ -1,5 +1,5 @@
-import clsx from "clsx";
 import Icon, { type IconName } from "../atoms/Icon";
+import { cn } from "~/lib/utils";
 
 interface ButtonProps {
   text?: string;
@@ -12,7 +12,7 @@ function Button({ text, variant = "primary", onClick, iconName }: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={clsx(
+      className={cn(
         "flex",
         "gap-1",
         "items-center",
