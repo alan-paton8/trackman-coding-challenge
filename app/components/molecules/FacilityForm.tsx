@@ -121,41 +121,27 @@ function FacilityForm({ facilityData }: FacilityFormProps) {
           ...facilityData,
           ...formData,
         };
-        // Update the facility in the list
-        setFacilities((prev) =>
-          prev.map((facility) =>
-            facility.id === facilityData.id ? updatedFacility : facility
-          )
-        );
-        // Save to local storage
-        localStorage.setItem(
-          "facilities",
-          JSON.stringify([
-            ...facilities.map((facility) =>
-              facility.id === facilityData.id ? updatedFacility : facility
-            ),
-          ])
-        );
+        // If this facility is marked as default, unset the previous default
+        const updatedFacilities = facilities.map((facility) => ({
+          ...(facility.id === updatedFacility.id ? updatedFacility : facility),
+          isDefault: facility.id === updatedFacility.id ? true : false,
+        }));
+        localStorage.setItem("facilities", JSON.stringify(updatedFacilities));
       } else {
         const facilityWithId: Facility = {
           id: crypto.randomUUID(),
           ...formData,
         };
+        let updatedFacilities = [...facilities, facilityWithId];
         if (facilities.length > 0 && formData.isDefault) {
-          // If this facility is marked as default, unset the previous default
-          setFacilities((prev) =>
-            prev.map((facility) => ({
-              ...facility,
-              isDefault: false,
-            }))
-          );
+          updatedFacilities = facilities.map((facility) => ({
+            ...facility,
+            isDefault: false,
+          }));
         }
-        // Add the new facility to the list
-        setFacilities((prev) => [...prev, facilityWithId]);
-        // Save to local storage
         localStorage.setItem(
           "facilities",
-          JSON.stringify([...facilities, facilityWithId])
+          JSON.stringify([...updatedFacilities, facilityWithId])
         );
       }
 
