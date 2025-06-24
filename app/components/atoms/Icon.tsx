@@ -1,14 +1,18 @@
-function Icon({ name }: { name: string }) {
+import * as Icons from "~/assets/icons/icons";
+
+export type IconName = keyof typeof Icons;
+
+function Icon({ name, className }: { name: IconName; className?: string }) {
+  const IconComponent = Icons[name];
+
+  if (!IconComponent) {
+    return null;
+  }
+
   return (
-    <svg
-      className="w-6 h-6 text-gray-500"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <use href={`#${name}`} />
-    </svg>
+    <span className="inline-block">
+      <img src={IconComponent} alt={name} className={className} />
+    </span>
   );
 }
 
