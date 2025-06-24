@@ -5,6 +5,7 @@ import DeleteModal from "../organisms/DeleteModal";
 import Button from "./Button";
 import type { Facility } from "./FacilityForm";
 import { useNavigate } from "react-router";
+import DefaultBadge from "./DefaultBadge";
 
 function isOpen(openTime: string, closeTime: string): boolean {
   const now = new Date();
@@ -89,11 +90,14 @@ function FacilityCard({
   return (
     <>
       <div className="p-3 bg-white rounded-lg overflow-hidden hover:shadow-md">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="w-full aspect-[1.83] mb-3 object-cover rounded-md"
-        />
+        <div className="relative">
+          {isDefault && <DefaultBadge className="absolute top-2 left-2 z-10" />}
+          <img
+            src={imageUrl}
+            alt={name}
+            className="w-full aspect-[1.83] mb-3 object-cover rounded-md"
+          />
+        </div>
         <div>
           <div className="flex items-center justify-between mb-1">
             <h2 className="text-base text-default">{name}</h2>
