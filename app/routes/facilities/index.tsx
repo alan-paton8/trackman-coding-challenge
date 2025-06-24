@@ -26,7 +26,7 @@ function Facilities() {
           onDeleteCallback={fetchFacilities}
         />
       ) : (
-        <div className="flex flex-col gap-5 m-auto items-center justify-center h-80 text-gray-500">
+        <div className="flex flex-col gap-5 m-auto items-center justify-center h-80 text-secondary-text">
           <span>No facilities available. Please add a facility.</span>
           <Button
             variant="primary"
