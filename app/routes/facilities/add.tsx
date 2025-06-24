@@ -1,7 +1,7 @@
 import FacilityForm from "~/components/molecules/FacilityForm";
 
-function NewFacility() {
+function AddFacility() {
   return <FacilityForm />;
 }
 
-export default NewFacility;
+export default AddFacility;

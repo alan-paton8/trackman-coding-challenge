@@ -6,16 +6,20 @@ import Button from "./Button";
 import { z } from "zod";
 import { useNavigate } from "react-router";
 
-type Facility = {
+export type Facility = {
   id: string;
   name: string;
   address: string;
   description?: string;
   imageUrl: string;
-  default?: boolean;
+  isDefault?: boolean;
   openTime: string;
   closeTime: string;
 };
+
+interface FacilityFormProps {
+  facilityData?: Facility;
+}
 
 //Set up Zod schema for form validation
 const facilitySchema = z.object({
@@ -26,7 +30,7 @@ const facilitySchema = z.object({
     .string()
     .url("Invalid URL format")
     .min(1, "Image URL is required"),
-  default: z.boolean().optional(),
+  isDefault: z.boolean().optional(),
   openTime: z
     .string()
     .regex(
@@ -41,20 +45,34 @@ const facilitySchema = z.object({
     ),
 });
 
-function FacilityForm() {
+function FacilityForm({ facilityData }: FacilityFormProps) {
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     address: "",
     description: "",
     imageUrl: "",
-    default: facilities.length === 0,
+    isDefault: facilities.length === 0,
     openTime: "",
     closeTime: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const navigate = useNavigate();
+
+  if (facilityData) {
+    useEffect(() => {
+      setFormData({
+        name: facilityData.name,
+        address: facilityData.address,
+        description: facilityData.description || "",
+        imageUrl: facilityData.imageUrl,
+        isDefault: facilityData.isDefault || false,
+        openTime: facilityData.openTime,
+        closeTime: facilityData.closeTime,
+      });
+    }, [facilityData]);
+  }
 
   useEffect(() => {
     const facilitiesData = localStorage.getItem("facilities");
@@ -97,29 +115,49 @@ function FacilityForm() {
         validationResult.error.formErrors.fieldErrors as Record<string, string>
       );
     } else {
-      // Sumbit data to local storage and add a uuid
-      console.log("Form data is valid:", formData);
-      // Add a unique ID to the facility
-      const facilityWithId: Facility = {
-        id: crypto.randomUUID(),
-        ...formData,
-      };
-      if (facilities.length > 0 && formData.default) {
-        // If this facility is marked as default, unset the previous default
+      // If facilityData prop is provided, we are editing an existing facility
+      if (facilityData) {
+        const updatedFacility: Facility = {
+          ...facilityData,
+          ...formData,
+        };
+        // Update the facility in the list
         setFacilities((prev) =>
-          prev.map((facility) => ({
-            ...facility,
-            default: false,
-          }))
+          prev.map((facility) =>
+            facility.id === facilityData.id ? updatedFacility : facility
+          )
+        );
+        // Save to local storage
+        localStorage.setItem(
+          "facilities",
+          JSON.stringify([
+            ...facilities.map((facility) =>
+              facility.id === facilityData.id ? updatedFacility : facility
+            ),
+          ])
+        );
+      } else {
+        const facilityWithId: Facility = {
+          id: crypto.randomUUID(),
+          ...formData,
+        };
+        if (facilities.length > 0 && formData.isDefault) {
+          // If this facility is marked as default, unset the previous default
+          setFacilities((prev) =>
+            prev.map((facility) => ({
+              ...facility,
+              isDefault: false,
+            }))
+          );
+        }
+        // Add the new facility to the list
+        setFacilities((prev) => [...prev, facilityWithId]);
+        // Save to local storage
+        localStorage.setItem(
+          "facilities",
+          JSON.stringify([...facilities, facilityWithId])
         );
       }
-      // Add the new facility to the list
-      setFacilities((prev) => [...prev, facilityWithId]);
-      // Save to local storage
-      localStorage.setItem(
-        "facilities",
-        JSON.stringify([...facilities, facilityWithId])
-      );
 
       navigate("/facilities");
     }
@@ -160,9 +198,9 @@ function FacilityForm() {
           <div className="flex space-x-2">
             <CheckboxInput
               title="Default Facility"
-              checked={facilities.length === 0 ? true : formData.default}
+              checked={facilities.length === 0 ? true : formData.isDefault}
               disabled={facilities.length === 0}
-              onChange={(e) => handleChange("default", e.target.checked)}
+              onChange={(e) => handleChange("isDefault", e.target.checked)}
               description="Setting this facility as default will override the currently marked default facility."
             />
           </div>

@@ -1,16 +1,8 @@
 import Icon from "../atoms/Icon";
 import Label from "../atoms/Label";
 import Button from "./Button";
-
-interface FacilityCardProps {
-  name: string;
-  address: string;
-  description: string;
-  imageUrl: string;
-  default?: boolean;
-  openTime?: string;
-  closeTime?: string;
-}
+import type { Facility } from "./FacilityForm";
+import { useNavigate } from "react-router";
 
 function isOpen(openTime: string, closeTime: string): boolean {
   const now = new Date();
@@ -26,16 +18,36 @@ function isOpen(openTime: string, closeTime: string): boolean {
 }
 
 function FacilityCard({
+  id,
   name,
   address,
   description,
   imageUrl,
-  default: isDefault = false,
+  isDefault,
   openTime,
   closeTime,
-}: FacilityCardProps) {
+}: Facility) {
+  const navigate = useNavigate();
+
   const isFacilityOpen =
     openTime && closeTime ? isOpen(openTime, closeTime) : false;
+
+  const handleEdit = () => {
+    navigate(`/facilities/edit/${id}`, {
+      state: {
+        facility: {
+          id,
+          name,
+          address,
+          description,
+          imageUrl,
+          isDefault,
+          openTime,
+          closeTime,
+        },
+      },
+    });
+  };
 
   return (
     <div className="p-3 bg-white rounded-lg overflow-hidden hover:shadow-md">
@@ -64,7 +76,11 @@ function FacilityCard({
           </div>
           <div className="flex items-center gap-1 justify-end">
             <Button variant="square" iconName="Delete" onClick={() => {}} />
-            <Button variant="secondary" text="Edit" onClick={() => {}} />
+            <Button
+              variant="secondary"
+              text="Edit"
+              onClick={() => handleEdit()}
+            />
           </div>
         </div>
       </div>
