@@ -27,6 +27,7 @@ function Button({ text, variant = "primary", onClick, iconName }: ButtonProps) {
         variant == "primary" && [
           "bg-trackman",
           "text-trackman-secondary",
+          "w-max",
           "py-1.5",
           "px-5.5",
           "rounded",
@@ -35,6 +36,7 @@ function Button({ text, variant = "primary", onClick, iconName }: ButtonProps) {
         variant == "secondary" && [
           "bg-trackman-secondary",
           "text-default",
+          "w-max",
           "py-1.5",
           "px-5.5",
           "rounded",

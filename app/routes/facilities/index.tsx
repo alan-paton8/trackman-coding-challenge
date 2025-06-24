@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import FacilityCard from "~/components/molecules/FacilityCard";
+import { useNavigate } from "react-router";
+import Button from "~/components/molecules/Button";
 import type { Facility } from "~/components/molecules/FacilityForm";
+import FacilitiesGrid from "~/components/organisms/FacilitiesGrid";
 
 function Facilities() {
   const [facilitiesParsed, setFacilitiesParsed] = useState<Facility[]>([]);
+  const navigate = useNavigate();
 
   const fetchFacilities = () => {
     const facilities = localStorage.getItem("facilities");
@@ -15,23 +18,26 @@ function Facilities() {
     fetchFacilities();
   }, []);
 
+  console.log("Facilities:", facilitiesParsed);
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-      {facilitiesParsed.map((facility: Facility) => (
-        <FacilityCard
-          key={facility.id}
-          id={facility.id}
-          name={facility.name}
-          address={facility.address}
-          description={facility.description}
-          imageUrl={facility.imageUrl}
-          isDefault={facility.isDefault}
-          openTime={facility.openTime}
-          closeTime={facility.closeTime}
-          onDelete={fetchFacilities}
+    <>
+      {facilitiesParsed.length > 0 ? (
+        <FacilitiesGrid
+          facilities={facilitiesParsed}
+          onDeleteCallback={fetchFacilities}
         />
-      ))}
-    </div>
+      ) : (
+        <div className="flex flex-col gap-5 m-auto items-center justify-center h-screen text-gray-500">
+          <span>No facilities available. Please add a facility.</span>
+          <Button
+            variant="primary"
+            text="Create Facility"
+            onClick={() => navigate("/facilities/add")}
+          />
+        </div>
+      )}
+    </>
   );
 }
 

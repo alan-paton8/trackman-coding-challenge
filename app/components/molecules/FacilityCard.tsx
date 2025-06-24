@@ -38,6 +38,7 @@ function FacilityCard({
   const isFacilityOpen =
     openTime && closeTime ? isOpen(openTime, closeTime) : false;
 
+  console.log("Rendering FacilityCard:", id);
   const handleEdit = () => {
     navigate(`/facilities/edit/${id}`, {
       state: {
@@ -62,9 +63,21 @@ function FacilityCard({
   const handleDelete = () => {
     const facilities = localStorage.getItem("facilities");
     const facilitiesParsed = facilities ? JSON.parse(facilities) : [];
+
+    if (isDefault) {
+      const nextDefault = facilitiesParsed.find(
+        (facility: Facility) => facility.id !== id && !facility.isDefault
+      );
+      if (nextDefault) {
+        nextDefault.isDefault = true;
+        localStorage.setItem("facilities", JSON.stringify(facilitiesParsed));
+      }
+    }
+
     const updatedFacilities = facilitiesParsed.filter(
       (facility: Facility) => facility.id !== id
     );
+
     localStorage.setItem("facilities", JSON.stringify(updatedFacilities));
     setIsDeleting(false);
     onDelete();

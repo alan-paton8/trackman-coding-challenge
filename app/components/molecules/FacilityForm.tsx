@@ -227,7 +227,7 @@ function FacilityForm({ facilityData }: FacilityFormProps) {
           <Button
             text="Cancel"
             variant="secondary"
-            onClick={() => console.log("Cancelled")}
+            onClick={() => navigate("/facilities")}
           />
           <Button
             text="Save Facility"
