@@ -151,7 +151,7 @@ function FacilityForm({ facilityData }: FacilityFormProps) {
 
   return (
     <div className="flex flex-col space-y-4 p-4 bg-white rounded-lg shadow-md">
-      <h2 className="font-bold text-gray-800">Facility Information</h2>
+      <h2 className="font-bold text-default">Facility Information</h2>
       <div>
         <div className="space-y-4 sm:max-w-1/2 lg:max-w-2/5">
           <SingleLineInput
@@ -190,23 +190,26 @@ function FacilityForm({ facilityData }: FacilityFormProps) {
               description="Setting this facility as default will override the currently marked default facility."
             />
           </div>
-          <div className="flex space-x-2">
-            <SingleLineInput
-              title="Open Time"
-              value={formData.openTime}
-              onChange={(value) => handleChange("openTime", value)}
-              className="w-1/2"
-              error={errors.openTime}
-              required={true}
-            />
-            <SingleLineInput
-              title="Close Time"
-              value={formData.closeTime}
-              onChange={(value) => handleChange("closeTime", value)}
-              className="w-1/2"
-              error={errors.closeTime}
-              required={true}
-            />
+          <div className="flex flex-col space-y-2">
+            <h3 className="font-bold text-default">Working Hours</h3>
+            <div className="flex space-x-2">
+              <SingleLineInput
+                title="Open Time"
+                value={formData.openTime}
+                onChange={(value) => handleChange("openTime", value)}
+                className="w-1/2"
+                error={errors.openTime}
+                required={true}
+              />
+              <SingleLineInput
+                title="Close Time"
+                value={formData.closeTime}
+                onChange={(value) => handleChange("closeTime", value)}
+                className="w-1/2"
+                error={errors.closeTime}
+                required={true}
+              />
+            </div>
           </div>
         </div>
         <div className="flex mt-4 gap-2 justify-end">
