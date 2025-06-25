@@ -18,7 +18,12 @@ function EditFacility({ params }: Route.ComponentProps) {
       (facility: { id: string }) => facility.id === params.id
     );
   }
-  return <FacilityForm facilityData={facilityData} />;
+  return (
+    <div className="flex flex-col gap-5 text-default">
+      <h1 className="text-2xl font-bold">Edit Facility</h1>
+      <FacilityForm facilityData={facilityData} />
+    </div>
+  );
 }
 
 export default EditFacility;

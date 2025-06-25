@@ -151,7 +151,7 @@ function FacilityForm({ facilityData }: FacilityFormProps) {
 
   return (
     <div className="flex flex-col space-y-4 p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800">Add Facility</h2>
+      <h2 className="font-bold text-gray-800">Facility Information</h2>
       <div>
         <div className="space-y-4 sm:max-w-1/2 lg:max-w-2/5">
           <SingleLineInput

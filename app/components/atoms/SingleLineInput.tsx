@@ -21,7 +21,7 @@ function SingleLineInput({
     <div className={cn("flex flex-col", className)}>
       <label className="text-sm font-medium text-gray-700 mb-1" htmlFor={title}>
         {title}
-        {required && "*"}
+        {required && <span className="text-red-500">*</span>}
       </label>
       <input
         id={title}
