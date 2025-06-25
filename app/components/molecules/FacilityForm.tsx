@@ -141,7 +141,7 @@ function FacilityForm({ facilityData }: FacilityFormProps) {
         }
         localStorage.setItem(
           "facilities",
-          JSON.stringify([...updatedFacilities, facilityWithId])
+          JSON.stringify([...updatedFacilities])
         );
       }
 
